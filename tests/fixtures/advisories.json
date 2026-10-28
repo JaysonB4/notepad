@@ -1,0 +1,279 @@
+{
+  "description": "Vulnerable version ranges reported by `npm audit --json` for the notepad dependency tree before the upgrade. A package whose installed version falls inside a listed range is vulnerable. Entries with id come from a GitHub advisory; entries without one are the package-level ranges npm reported.",
+  "generatedFrom": "package-lock.json shipped in notepad.zip (Next 15, TipTap 2 and 3.0-3.30, Tailwind 3)",
+  "advisories": [
+    {
+      "package": "@tiptap/core",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.30.3"
+    },
+    {
+      "package": "@tiptap/core",
+      "severity": "moderate",
+      "id": "GHSA-cp6q-959q-f8rh",
+      "title": "Tiptap: mergeAttributes() turns an own __proto__ key into inherited executable DOM attributes",
+      "vulnerableRange": ">=2.0.0-alpha.0 <3.30.4"
+    },
+    {
+      "package": "@tiptap/extension-blockquote",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-bold",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-bubble-menu",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-bullet-list",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-code",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-code-block",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-document",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-dropcursor",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-floating-menu",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-gapcursor",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-hard-break",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-heading",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-history",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-horizontal-rule",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-italic",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-list-item",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-ordered-list",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-paragraph",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-placeholder",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-strike",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-task-item",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-task-list",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=2.27.3"
+    },
+    {
+      "package": "@tiptap/extension-text",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/extension-text-style",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/react",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.22.4 - 3.30.3"
+    },
+    {
+      "package": "@tiptap/starter-kit",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=3.0.0-next.8 || 3.30.0 - 3.30.3"
+    },
+    {
+      "package": "braces",
+      "severity": "high",
+      "id": "GHSA-vfj7-8cjw-p6xm",
+      "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+      "vulnerableRange": "<=3.0.3"
+    },
+    {
+      "package": "chokidar",
+      "severity": "high",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "2.0.0 - 3.6.0"
+    },
+    {
+      "package": "markdown-it",
+      "severity": "high",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=14.3.2"
+    },
+    {
+      "package": "markdown-it",
+      "severity": "low",
+      "id": "GHSA-vfgh-jcmw-g37q",
+      "title": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+      "vulnerableRange": "<14.3.3"
+    },
+    {
+      "package": "markdown-it",
+      "severity": "high",
+      "id": "GHSA-gfr2-rv44-r23c",
+      "title": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+      "vulnerableRange": ">=14.1.0 <14.3.3"
+    },
+    {
+      "package": "micromatch",
+      "severity": "high",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": ">=0.2.0"
+    },
+    {
+      "package": "next",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "9.3.4-canary.0 - 16.3.0-preview.10"
+    },
+    {
+      "package": "postcss",
+      "severity": "high",
+      "id": "GHSA-6g55-p6wh-862q",
+      "title": "PostCSS: Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments",
+      "vulnerableRange": "<=8.5.11"
+    },
+    {
+      "package": "postcss",
+      "severity": "high",
+      "id": "GHSA-r28c-9q8g-f849",
+      "title": "PostCSS: Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure",
+      "vulnerableRange": "<=8.5.17"
+    },
+    {
+      "package": "postcss",
+      "severity": "moderate",
+      "id": "GHSA-fxqj-rqcc-2cmp",
+      "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
+      "vulnerableRange": "<=8.5.22"
+    },
+    {
+      "package": "postcss",
+      "severity": "high",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=8.5.22"
+    },
+    {
+      "package": "postcss",
+      "severity": "moderate",
+      "id": "GHSA-qx2v-qp2m-jg93",
+      "title": "PostCSS has XSS via Unescaped </style> in its CSS Stringify Output",
+      "vulnerableRange": "<8.5.10"
+    },
+    {
+      "package": "postcss-nested",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "2.0.3 - 6.2.0"
+    },
+    {
+      "package": "postcss-selector-parser",
+      "severity": "moderate",
+      "id": "GHSA-rj75-hqrm-r3gf",
+      "title": "PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion",
+      "vulnerableRange": "<7.1.6"
+    },
+    {
+      "package": "postcss-selector-parser",
+      "severity": "moderate",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<7.1.6"
+    },
+    {
+      "package": "tailwindcss",
+      "severity": "high",
+      "title": "package-level range reported by npm audit",
+      "vulnerableRange": "<=0.0.0-oxide-insiders.ff2c25f || 0.5.0 - 3.4.19"
+    }
+  ]
+}

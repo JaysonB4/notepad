@@ -1,0 +1,326 @@
+@import "tailwindcss";
+/* Keep the existing JS config (dark mode via the .dark class, warm colours). */
+@config "../tailwind.config.ts";
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* =====================================================================
+   Embossed button (the light/dark switch)
+   Reads as raised from the toolbar: a lit top edge, a shaded bottom edge
+   and a soft drop shadow. Pressing it pushes it in.
+   ===================================================================== */
+
+.emboss {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: linear-gradient(to bottom, #ffffff, #ebe9e6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.07),
+    0 1px 2px rgba(60, 40, 10, 0.28),
+    0 2px 5px -1px rgba(60, 40, 10, 0.12);
+  transition:
+    background 0.15s,
+    box-shadow 0.15s;
+}
+
+.emboss:hover {
+  background: linear-gradient(to bottom, #ffffff, #f3f1ee);
+}
+
+.emboss:active {
+  background: linear-gradient(to bottom, #e4e2de, #eeece8);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.dark .emboss {
+  border-color: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(to bottom, #3d342b, #2a231d);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.65),
+    0 2px 6px -1px rgba(0, 0, 0, 0.4);
+}
+
+.dark .emboss:hover {
+  background: linear-gradient(to bottom, #463b31, #2f2720);
+}
+
+.dark .emboss:active {
+  background: linear-gradient(to bottom, #221c17, #2b241e);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.7),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* =====================================================================
+   Legal pad
+   The sheet fills all the space between the toolbar and the sidebar.
+   Every block in the editor uses a line-height of exactly --line and no
+   vertical margins, so each line of text lands on one ruled line.
+   ===================================================================== */
+
+.pad-sheet {
+  --line: 1.875rem;
+  --margin-x: 3.5rem;
+
+  /* Light mode: yellow paper, blue pen ink */
+  --paper: #fdf0a0;
+  --rule: rgba(66, 125, 186, 0.42);
+  --margin-red: rgba(209, 58, 54, 0.85);
+  --ink: #1d2433;
+  --ink-soft: rgba(29, 36, 51, 0.4);
+  --selection: rgba(66, 125, 186, 0.28);
+  --check: #2f5f9e;
+  --edge-shadow: rgba(60, 20, 0, 0.28);
+  /* Debossed code block */
+  --well-bg: rgba(29, 36, 51, 0.09);
+  --well-shadow: rgba(40, 25, 0, 0.4);
+  --well-light: rgba(255, 255, 255, 0.6);
+
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  cursor: text;
+  color: var(--ink);
+  caret-color: var(--ink);
+
+  /* Text starts on the first ruled line. Slight margin on the right, and room to scroll at the bottom. */
+  padding: 0 2.25rem calc(var(--line) * 3) calc(var(--margin-x) + 1.75rem);
+
+  background-color: var(--paper);
+  background-image:
+    /* ruled lines: a 1px rule at the bottom of every --line tile */
+    linear-gradient(to bottom, transparent calc(var(--line) - 1px), var(--rule) calc(var(--line) - 1px)),
+    /* single solid red margin line */
+    linear-gradient(
+      to right,
+      transparent var(--margin-x),
+      var(--margin-red) var(--margin-x) calc(var(--margin-x) + 2px),
+      transparent calc(var(--margin-x) + 2px)
+    );
+  background-size:
+    100% var(--line),
+    100% 100%;
+  background-repeat: repeat-y, repeat-y;
+  /* "local" makes the rules scroll with the text so they never drift. */
+  background-attachment: local, local;
+
+  /* The sheet sits slightly recessed under the toolbar and beside the sidebar. */
+  box-shadow:
+    inset 0 6px 6px -6px var(--edge-shadow),
+    inset 6px 0 6px -6px var(--edge-shadow);
+}
+
+/* Dark mode: warm grey paper with warm off-white ink */
+.dark .pad-sheet {
+  --paper: #433e38;
+  --rule: rgba(236, 226, 206, 0.16);
+  --margin-red: rgba(224, 106, 94, 0.75);
+  --ink: #efe9dc;
+  --ink-soft: rgba(239, 233, 220, 0.42);
+  --selection: rgba(232, 178, 92, 0.35);
+  --check: #e3ab4f;
+  --edge-shadow: rgba(0, 0, 0, 0.5);
+  --well-bg: rgba(0, 0, 0, 0.26);
+  --well-shadow: rgba(0, 0, 0, 0.65);
+  --well-light: rgba(255, 255, 255, 0.08);
+}
+
+.pad-sheet ::selection {
+  background: var(--selection);
+}
+
+@media (max-width: 639px) {
+  .pad-sheet {
+    --margin-x: 2rem;
+    padding-right: 1.25rem;
+    padding-left: calc(var(--margin-x) + 1.25rem);
+  }
+}
+
+/* ---------- Editor content ---------- */
+
+.ProseMirror {
+  outline: none;
+  max-width: 44rem;
+  font-size: 1.125rem;
+  line-height: var(--line);
+  overflow-wrap: break-word;
+  /* Width of a Tab typed into the text. */
+  tab-size: 4;
+}
+
+.ProseMirror > *,
+.ProseMirror li > * {
+  margin: 0;
+}
+
+.ProseMirror p {
+  margin: 0;
+}
+
+/* Headings keep a one-line height so they stay on the ruled lines. */
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3 {
+  line-height: var(--line);
+  font-weight: 700;
+}
+
+.ProseMirror h1 {
+  font-size: 1.6rem;
+}
+
+.ProseMirror h2 {
+  font-size: 1.35rem;
+}
+
+.ProseMirror h3 {
+  font-size: 1.15rem;
+}
+
+.ProseMirror ul:not([data-type="taskList"]) {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.ProseMirror ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid var(--ink-soft);
+  padding-left: 1rem;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* Inline code must not grow the line box. */
+.ProseMirror code {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  border-radius: 0.2rem;
+  padding: 0 0.3em;
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+/* Code block: pressed into the paper. It uses inset shadows only (no border or vertical padding),
+   so its height stays an exact number of ruled lines and the rules show through it. */
+.ProseMirror pre {
+  background: var(--well-bg);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 3px 4px -1px var(--well-shadow),
+    inset 2px 0 3px -1px var(--well-shadow),
+    inset 0 -1px 0 var(--well-light),
+    inset -1px 0 0 var(--well-light);
+  padding: 0 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: var(--line);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ProseMirror pre code {
+  background: none;
+  padding: 0;
+  /* Same font as the block. Tailwind gives <code> its own stack, whose metrics can stretch the line box. */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* A divider takes exactly one ruled line and draws its own stroke mid-line. */
+.ProseMirror hr {
+  border: 0;
+  height: var(--line);
+  margin: 0;
+  background: linear-gradient(var(--ink-soft), var(--ink-soft)) center / 100% 2px no-repeat;
+}
+
+/* Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--ink-soft);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ---------- Task list (checkboxes) ---------- */
+
+ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+
+ul[data-type="taskList"] ul[data-type="taskList"] {
+  margin-left: 1.5rem;
+}
+
+ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+/* Center the checkbox on its ruled line. */
+ul[data-type="taskList"] li > label {
+  flex: 0 0 auto;
+  margin-top: calc((var(--line) - 1.1rem) / 2);
+  user-select: none;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"] {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--check);
+}
+
+ul[data-type="taskList"] li > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+ul[data-type="taskList"] li[data-checked="true"] > div {
+  color: color-mix(in srgb, var(--ink) 50%, transparent);
+  text-decoration: line-through;
+}
+
+/* ---------- Status bar under the pad ---------- */
+
+/* The text starts just after the red margin line, matching the paper above. */
+.status-bar {
+  --margin-x: 3.5rem;
+  padding-left: calc(var(--margin-x) + 0.75rem);
+}
+
+@media (max-width: 639px) {
+  .status-bar {
+    --margin-x: 2rem;
+    padding-left: calc(var(--margin-x) + 0.75rem);
+  }
+}
