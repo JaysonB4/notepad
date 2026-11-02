@@ -1,6 +1,8 @@
 # Notepad
 
-A simple notepad built with **Next.js**, **TipTap**, and **Tailwind CSS**. Notes are kept in your browser's `localStorage`. Optionally, you can create an account (powered by **Supabase**) to keep notes that sync across devices.
+A web-based notepad that runs in your browser, built with **Next.js**, **TipTap**, and **Tailwind CSS**. Notes are kept in your browser's `localStorage`. Optionally, you can create an account (powered by **Supabase**) to keep notes that sync across devices. The project is deployed on **Vercel**, with **Supabase** providing the database and accounts.
+
+**Live site:** https://notepad-ten-khaki.vercel.app/
 
 ## Features
 
@@ -34,7 +36,11 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The notepad works without any setup, but the account features need a Supabase project (see below).
+Open http://localhost:3000. The notepad works without any setup. The account features need a Supabase project:
+
+1. Run `supabase/schema.sql` in the Supabase SQL Editor.
+2. Copy `.env.example` to `.env.local` and fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Restart `npm run dev`.
 
 For a production build:
 
@@ -42,21 +48,6 @@ For a production build:
 npm run build
 npm start
 ```
-
-## Setting up Supabase (for accounts and sync)
-
-1. **Create a project** at https://supabase.com. Note the project URL and the `anon` public key under **Project Settings → API**.
-2. **Create the table.** Open **SQL Editor** in the Supabase dashboard, paste the contents of `supabase/schema.sql`, and run it. This creates the `notes` table and the row-level security policies, so each user can only read and change their own notes.
-3. **Add your keys.** Copy `.env.example` to `.env.local` and fill in:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-   ```
-   Restart `npm run dev` after changing these. `.env.local` is git-ignored.
-4. **Configure Auth.** In **Authentication → URL Configuration**, set the Site URL (for example `http://localhost:3000` while developing) and add your deployed URL to the redirect URLs.
-5. **Email confirmation.** By default Supabase asks new users to confirm their email before they can log in. You can keep that, or turn it off under **Authentication → Providers → Email** while testing.
-
-Without these variables, the notepad still works on this device, but the sign-up dialog shows a "not configured" message instead of a form.
 
 ## Testing and security
 
