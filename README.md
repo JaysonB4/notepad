@@ -9,7 +9,20 @@ A simple notepad built with **Next.js**, **TipTap**, and **Tailwind CSS**. Notes
 - Bullet lists, numbered lists, and **checklists with checkboxes**
 - **Tables** of any size (up to 20 rows and 10 columns). Use the **Table** button or Ctrl/Cmd+Alt+T, then add rows and columns with the **+** buttons beside and below the table. Tab and Shift+Tab move between cells. Columns have a fixed width (140px by default), and you can drag a column's right border to change it. The width is saved with the note.
 - **Code blocks** can be narrowed or widened by dragging the handle on their right edge. The width is saved with the note.
-- **Keyboard shortcuts** for every formatting button. Each button's tooltip shows its shortcut, using Ctrl on Windows and Linux and Cmd on Mac: Bold Ctrl+B, Italic Ctrl+I, Strikethrough Ctrl+Shift+S, Heading 1 Ctrl+Alt+1, Heading 2 Ctrl+Alt+2, Bullet list Ctrl+Shift+8, Numbered list Ctrl+Shift+7, Checklist Ctrl+Shift+9, Quote Ctrl+Shift+B, Code block Ctrl+Alt+C, Table Ctrl+Alt+T, Undo Ctrl+Z, Redo Ctrl+Shift+Z.
+- **Keyboard shortcuts** for every formatting button. Each button's tooltip shows its shortcut, using Ctrl on Windows and Linux and Cmd on Mac:
+  - **Bold:** Ctrl+B
+  - **Italic:** Ctrl+I
+  - **Strikethrough:** Ctrl+Shift+S
+  - **Heading 1:** Ctrl+Alt+1
+  - **Heading 2:** Ctrl+Alt+2
+  - **Bullet List:** Ctrl+Shift+8
+  - **Numbered List:** Ctrl+Shift+7
+  - **Checklist:** Ctrl+Shift+9
+  - **Quote:** Ctrl+Shift+B
+  - **Code Block:** Ctrl+Alt+C
+  - **Table:** Ctrl+Alt+T
+  - **Undo:** Ctrl+Z
+  - **Redo:** Ctrl+Shift+Z
 - **Tab key indentation**: Tab nests a list item and Shift+Tab lifts it back out. In plain text, Tab inserts an indent at the cursor (or indents every selected line) and Shift+Tab removes one. Press Escape to leave the editor, then Tab moves on to the rest of the page.
 - Word and character count in the bottom bar, just after the red margin
 - Sidebar titles come from the first line of each note (the first item, for a list)
