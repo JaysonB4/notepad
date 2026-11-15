@@ -29,6 +29,11 @@ create index if not exists notes_user_updated_idx on public.notes (user_id, upda
 
 alter table public.notes enable row level security;
 
+-- Table permissions. Automatic exposure is off, so Supabase doesn't grant these for us.
+-- Only signed-in users may use the table; row-level security then limits each user to their own rows.
+grant select, insert, update, delete on public.notes to authenticated;
+revoke all on public.notes from anon;
+
 create policy "Read own notes"
   on public.notes for select
   using (auth.uid() = user_id);

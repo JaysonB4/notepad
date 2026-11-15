@@ -89,6 +89,8 @@ body {
   --ink-soft: rgba(29, 36, 51, 0.4);
   --selection: rgba(66, 125, 186, 0.28);
   --check: #2f5f9e;
+  /* Table borders: brown, so they can't be mistaken for the blue ruled lines */
+  --table-line: #80541c;
   --edge-shadow: rgba(60, 20, 0, 0.28);
   /* Debossed code block */
   --well-bg: rgba(29, 36, 51, 0.09);
@@ -139,6 +141,7 @@ body {
   --ink-soft: rgba(239, 233, 220, 0.42);
   --selection: rgba(232, 178, 92, 0.35);
   --check: #e3ab4f;
+  --table-line: #b89460;
   --edge-shadow: rgba(0, 0, 0, 0.5);
   --well-bg: rgba(0, 0, 0, 0.26);
   --well-shadow: rgba(0, 0, 0, 0.65);
@@ -161,7 +164,8 @@ body {
 
 .ProseMirror {
   outline: none;
-  max-width: 44rem;
+  /* Fill the sheet to its right-hand padding, rather than stopping at a fixed column width. */
+  max-width: none;
   font-size: 1.125rem;
   line-height: var(--line);
   overflow-wrap: break-word;
@@ -251,6 +255,115 @@ body {
 }
 
 /* A divider takes exactly one ruled line and draws its own stroke mid-line. */
+/* Tables: cells sit on the same ruled lines as the text, so each row is one line tall. */
+.ProseMirror .tableWrapper {
+  max-width: 100%;
+  margin: 0;
+  /* One empty ruled line under the table, for the add-row button. Nothing can be typed there. */
+  margin-bottom: var(--line);
+  /* A table can be wider than the sheet; scroll it rather than shrink its columns. */
+  overflow-x: auto;
+}
+
+/* Borders are drawn with inset shadows, not CSS borders, so they add no height.
+   Each row is exactly one --line tall and the table lands on the same rules as the text. */
+.ProseMirror table {
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  margin: 0;
+  /* Outline sits inside the table's box and takes no space, so it doesn't move the rows. */
+  outline: 2px solid var(--table-line);
+  outline-offset: -2px;
+}
+
+.ProseMirror td,
+.ProseMirror th {
+  min-width: 6rem;
+  height: var(--line);
+  padding: 0 0.5rem;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+  border: 0;
+  box-shadow: inset -2px 0 0 var(--table-line), inset 0 -2px 0 var(--table-line);
+}
+
+.ProseMirror th {
+  font-weight: 600;
+  background-color: var(--well-bg);
+}
+
+/* Set by the table extension on cells that are part of a selection. */
+.ProseMirror .selectedCell {
+  background-color: var(--selection);
+}
+
+/* Column borders: drag one to change that column's width. The handle shows when you point at the cell. */
+.ProseMirror .column-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  right: -3px;
+  width: 6px;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 2;
+}
+
+.ProseMirror td:hover > .column-resize-handle,
+.ProseMirror th:hover > .column-resize-handle,
+.ProseMirror .column-resize-handle:hover {
+  background: color-mix(in srgb, var(--check) 70%, transparent);
+}
+
+/* Hide the add buttons while a column border is being dragged. TipTap marks the dragged cell. */
+.pad-sheet:has(.column-resize-dragging) .table-control {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* Set by the table extension on the editor while a column border is being dragged. */
+.ProseMirror.resize-cursor {
+  cursor: col-resize;
+}
+
+/* Code block width: a handle on its right edge, shown when you point at the block or drag it. */
+.code-block-frame {
+  position: relative;
+  max-width: 100%;
+}
+
+.code-block-frame > pre {
+  max-width: 100%;
+}
+
+.code-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -9px;
+  width: 10px;
+  display: flex;
+  justify-content: center;
+  cursor: ew-resize;
+}
+
+.code-resize-handle::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  background: var(--check);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.code-block-frame:hover .code-resize-handle::before,
+.code-block-frame.is-resizing .code-resize-handle::before {
+  opacity: 0.7;
+}
+
 .ProseMirror hr {
   border: 0;
   height: var(--line);

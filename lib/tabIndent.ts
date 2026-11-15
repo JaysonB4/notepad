@@ -23,6 +23,9 @@ export const TabIndent = Extension.create({
 
     return {
       Tab: () => {
+        // In a table, Tab moves to the next cell. Returning false lets the table handle it.
+        if (this.editor.isActive("table")) return false;
+
         const list = listType();
         if (list) {
           // Returns false for the first item (nothing above to nest under); the key is still consumed.
@@ -52,6 +55,9 @@ export const TabIndent = Extension.create({
       },
 
       "Shift-Tab": () => {
+        // In a table, Shift+Tab moves to the previous cell.
+        if (this.editor.isActive("table")) return false;
+
         const list = listType();
         if (list) {
           this.editor.commands.liftListItem(list);

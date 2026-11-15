@@ -1,14 +1,15 @@
 # Notepad
 
-A web-based notepad that runs in your browser, built with **Next.js**, **TipTap**, and **Tailwind CSS**. Notes are kept in your browser's `localStorage`. Optionally, you can create an account (powered by **Supabase**) to keep notes that sync across devices. The project is deployed on **Vercel**, with **Supabase** providing the database and accounts.
-
-**Live site:** https://notepad-ten-khaki.vercel.app/
+A simple notepad built with **Next.js**, **TipTap**, and **Tailwind CSS**. Notes are kept in your browser's `localStorage`. Optionally, you can create an account (powered by **Supabase**) to keep notes that sync across devices.
 
 ## Features
 
-- Yellow legal-pad look: ruled lines, a solid red margin line, and every line of text sits on a ruled line
+- Yellow legal-pad look: ruled lines, a solid red margin line, and every line of text sits on a ruled line. The writing area fills the width of the sheet.
 - Rich text: bold, italic, strikethrough, headings, quotes, code blocks
 - Bullet lists, numbered lists, and **checklists with checkboxes**
+- **Tables** of any size (up to 20 rows and 10 columns). Use the **Table** button or Ctrl/Cmd+Alt+T, then add rows and columns with the **+** buttons beside and below the table. Tab and Shift+Tab move between cells. Columns have a fixed width (140px by default), and you can drag a column's right border to change it. The width is saved with the note.
+- **Code blocks** can be narrowed or widened by dragging the handle on their right edge. The width is saved with the note.
+- **Keyboard shortcuts** for every formatting button. Each button's tooltip shows its shortcut, using Ctrl on Windows and Linux and Cmd on Mac: Bold Ctrl+B, Italic Ctrl+I, Strikethrough Ctrl+Shift+S, Heading 1 Ctrl+Alt+1, Heading 2 Ctrl+Alt+2, Bullet list Ctrl+Shift+8, Numbered list Ctrl+Shift+7, Checklist Ctrl+Shift+9, Quote Ctrl+Shift+B, Code block Ctrl+Alt+C, Table Ctrl+Alt+T, Undo Ctrl+Z, Redo Ctrl+Shift+Z.
 - **Tab key indentation**: Tab nests a list item and Shift+Tab lifts it back out. In plain text, Tab inserts an indent at the cursor (or indents every selected line) and Shift+Tab removes one. Press Escape to leave the editor, then Tab moves on to the rest of the page.
 - Word and character count in the bottom bar, just after the red margin
 - Sidebar titles come from the first line of each note (the first item, for a list)
@@ -20,7 +21,7 @@ A web-based notepad that runs in your browser, built with **Next.js**, **TipTap*
 
 ### Accounts and sync
 
-- A **Sign up** button sits beside the theme toggle. Once you are logged in, it shows your username instead, and its menu has **Log out**.
+- A **Login/Sign Up** button sits beside the theme toggle. Once you are logged in, it shows your username instead, and its menu has **Log out**.
 - When logged out, notes stay in `localStorage` on this device.
 - When logged in, the sidebar has two groups:
   - **On this device**: notes still stored in this browser.
@@ -36,11 +37,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The notepad works without any setup. The account features need a Supabase project:
-
-1. Run `supabase/schema.sql` in the Supabase SQL Editor.
-2. Copy `.env.example` to `.env.local` and fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-3. Restart `npm run dev`.
+Open http://localhost:3000. The notepad works without any setup, but the account features need a Supabase project (see below).
 
 For a production build:
 
@@ -48,6 +45,21 @@ For a production build:
 npm run build
 npm start
 ```
+
+## Setting up Supabase (for accounts and sync)
+
+1. **Create a project** at https://supabase.com. Note the project URL and the `anon` public key under **Project Settings → API**.
+2. **Create the table.** Open **SQL Editor** in the Supabase dashboard, paste the contents of `supabase/schema.sql`, and run it. This creates the `notes` table and the row-level security policies, so each user can only read and change their own notes.
+3. **Add your keys.** Copy `.env.example` to `.env.local` and fill in:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   ```
+   Restart `npm run dev` after changing these. `.env.local` is git-ignored.
+4. **Configure Auth.** In **Authentication → URL Configuration**, set the Site URL (for example `http://localhost:3000` while developing) and add your deployed URL to the redirect URLs.
+5. **Email confirmation.** By default Supabase asks new users to confirm their email before they can log in. You can keep that, or turn it off under **Authentication → Providers → Email** while testing.
+
+Without these variables, the notepad still works on this device, but the sign-up dialog shows a "not configured" message instead of a form.
 
 ## Testing and security
 
@@ -78,7 +90,9 @@ app/
 components/
   Notepad.tsx       Sidebar groups, note list, search, autosave, drag-and-drop
   Editor.tsx        TipTap editor setup, word count and status line
-  Toolbar.tsx       Formatting buttons
+  Toolbar.tsx       Formatting buttons, with shortcut tooltips
+  TableInsertPopover.tsx  Rows and columns picker for a new table
+  TableControls.tsx Column (+) and row (+) buttons for each table
   AccountButton.tsx Sign up button, or username menu when logged in
   AccountDialog.tsx Sign up and log in form
   icons.tsx         Bullet, numbered and checklist icons
@@ -86,6 +100,8 @@ components/
   SidebarToggle.tsx Arrow tab that hides and shows the sidebar
 lib/
   storage.ts        localStorage load/save and the Note type
+  shortcuts.ts      Keyboard shortcuts, and the tooltip text that shows them
+  tableSize.ts      Table size limits
   tabIndent.ts      TipTap extension for Tab / Shift+Tab indentation
   title.ts          Works out a note's title from its first line
   supabase.ts       Supabase client (reads the .env.local values)

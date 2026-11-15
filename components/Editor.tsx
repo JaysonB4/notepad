@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   EditorContent,
+  Extension,
   useEditor,
   type Editor as TipTapEditor,
   type JSONContent,
@@ -11,9 +12,30 @@ import StarterKit from "@tiptap/starter-kit";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
 import Placeholder from "@tiptap/extension-placeholder";
+import { Table, TableRow } from "@tiptap/extension-table";
 import Toolbar from "./Toolbar";
+import TableControls from "./TableControls";
 import { TabIndent } from "@/lib/tabIndent";
 import { titleFromContent } from "@/lib/title";
+import { SHORTCUTS } from "@/lib/shortcuts";
+import { FixedWidthCell, FixedWidthHeader } from "@/lib/tableCells";
+import { ResizableCodeBlock } from "@/lib/resizableCodeBlock";
+
+/** Opens the table size panel from the keyboard. */
+const TableShortcut = Extension.create<{ onOpen: () => void }>({
+  name: "tableShortcut",
+  addOptions() {
+    return { onOpen: () => {} };
+  },
+  addKeyboardShortcuts() {
+    return {
+      [SHORTCUTS.table]: () => {
+        this.options.onOpen();
+        return true;
+      },
+    };
+  },
+});
 
 type Props = {
   /** Initial document. The editor is meant to be remounted (via `key`) when switching notes. */
@@ -54,11 +76,23 @@ export default function Editor({ initialContent, onChange, status, statusTone }:
     onChangeRef.current = onChange;
   }, [onChange]);
 
+  const [tableOpen, setTableOpen] = useState(false);
+  // The scrolling sheet, which the table "+" buttons are placed over.
+  const sheetRef = useRef<HTMLDivElement>(null);
+
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      // The code block is replaced by ResizableCodeBlock below, which adds a draggable width.
+      StarterKit.configure({ codeBlock: false }),
+      ResizableCodeBlock,
       TaskList,
       TaskItem.configure({ nested: true }),
+      // Columns can be resized by dragging their borders.
+      Table.configure({ resizable: true }),
+      TableRow,
+      FixedWidthHeader,
+      FixedWidthCell,
+      TableShortcut.configure({ onOpen: () => setTableOpen(true) }),
       Placeholder.configure({
         placeholder: "Start typing… try “- ” for a list or “[ ] ” for a checklist",
       }),
@@ -86,8 +120,14 @@ export default function Editor({ initialContent, onChange, status, statusTone }:
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <Toolbar editor={editor} />
+      <Toolbar
+        editor={editor}
+        tableOpen={tableOpen}
+        onTableOpen={() => setTableOpen(true)}
+        onTableClose={() => setTableOpen(false)}
+      />
       <div
+        ref={sheetRef}
         className="pad-sheet"
         // Clicking the empty paper below the text puts the cursor at the end.
         onClick={(e) => {
@@ -95,6 +135,7 @@ export default function Editor({ initialContent, onChange, status, statusTone }:
         }}
       >
         <EditorContent editor={editor} />
+        <TableControls editor={editor} containerRef={sheetRef} />
       </div>
       <Stats editor={editor} status={status} statusTone={statusTone} />
     </div>
