@@ -62,7 +62,7 @@ export default function AccountButton() {
           className="emboss flex h-8 items-center gap-1.5 px-3 text-sm"
         >
           <UserIcon />
-          <span>Login/Sign Up</span>
+          <span>Sign up / Log in</span>
         </button>
         <AccountDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
       </>
